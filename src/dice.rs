@@ -36,7 +36,7 @@ impl<T> Dice<T> where T: Copy + std::fmt::Debug + Ord {
 
 	fn get_ordering(rolls: &Vec<T>) -> Vec<usize> {
 		let mut enumerated: Vec<_> = rolls.iter().enumerate().collect();
-		enumerated.sort_by_key(|(_, e)| *e);
+		enumerated.sort_unstable_by_key(|(_, e)| *e);
 
 		let mut ordered = vec![0; rolls.len()];
 
@@ -51,7 +51,7 @@ impl<T> Dice<T> where T: Copy + std::fmt::Debug + Ord {
 	fn get_rolls(&self, permutation: &Vec<usize>) -> Vec<T> {
 		let mut rolls = Vec::new();
 
-		for die in 0..self.dice.len() {
+		for die in (0..self.dice.len()).rev() {
 			let perm = permutation[die];
 			let value = self.dice[die][perm];
 
