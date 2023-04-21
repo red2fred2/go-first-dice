@@ -22,7 +22,7 @@ impl<T> Dice<T> where T: Copy + std::fmt::Debug + Ord {
 			let rolls = self.get_rolls(&permutation);
 			let ordering = Self::get_ordering(&rolls);
 
-			let mut count = 1;
+			let mut count: usize = 1;
 
 			if let Some(n) = counts.get(&ordering) {
 				count += *n;
@@ -31,7 +31,9 @@ impl<T> Dice<T> where T: Copy + std::fmt::Debug + Ord {
 			counts.insert(ordering, count);
 		}
 
-		println!("{counts:?}");
+		counts.iter().for_each(|(k, v)| {
+			println!("{k:?} : {v}");
+		});
 	}
 
 	fn get_ordering(rolls: &Vec<T>) -> Vec<usize> {
